@@ -1,0 +1,40 @@
+---
+import { ICONS } from "@utils/icons";
+import { BRANDS } from "@utils/brands";
+
+type IconName = keyof typeof ICONS | keyof typeof BRANDS;
+
+interface Props {
+  name: IconName;
+  color?: string;
+  size?: string | number;
+  class?: string;
+}
+
+const {
+  name,
+  color = "currentColor",
+  size,
+  class: className,
+} = Astro.props as Props;
+
+const icon =
+  ICONS[name as keyof typeof ICONS] ||
+  BRANDS[name as keyof typeof BRANDS] ||
+  null;
+
+const style = `
+  color:${color};
+  ${size ? `--icon-size:${typeof size === "number" ? `${size}px` : size};` : ""}
+`;
+---
+
+{
+  icon && (
+    <span style={style}>
+      <Fragment
+        set:html={icon.replace("<svg", `<svg class="${className ?? ""}"`)}
+      />
+    </span>
+  )
+}

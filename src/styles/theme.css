@@ -1,0 +1,88 @@
+:root {
+  /* ── Semantic status colors ── */
+  --status-success:  #34d399;
+  --status-warning:  #ed931b;
+  --status-error:    #e53935;
+  --status-info:     #0071e3; /*0071e3 4493f8 4493f8*/
+  --status-neutral:  #808ea2;
+  --status-brand:    #f31b75;
+}
+
+/* ── Type assignments ── */
+.type--success { --type-color: var(--status-success); }
+.type--warning { --type-color: var(--status-warning); }
+.type--error   { --type-color: var(--status-error);   }
+.type--info    { --type-color: var(--status-info);    }
+.type--neutral { --type-color: var(--status-neutral); }
+.type--brand   { --type-color: var(--status-brand);   }
+
+/* ── Variants ── */
+
+/* SOLID */
+.variant--solid {
+  border: 1px solid var(--type-color);
+  background: var(--type-color);
+  color: var(--type-text, #fff);
+}
+
+/* SOFT */
+.variant--soft {
+  background: color-mix(in srgb, var(--type-color) 15%, transparent);
+  color: var(--type-color);
+  border: 1px solid transparent;
+}
+
+/* SUBTLE */
+.variant--subtle {
+  background: color-mix(in srgb, var(--type-color) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--type-color) 20%, transparent);
+  color: var(--type-color);
+}
+
+/* GHOST */
+.variant--ghost {
+  background: transparent;
+  color: var(--type-color);
+}
+
+/* BASIC */
+.variant--surface {
+  border: 1px solid color-mix(in srgb, var(--text) 5%, transparent);
+  color: var(--type-color);
+  background: var(--surface);
+}
+
+/* OUTLINE */
+.variant--outline {
+  border: 1px solid var(--type-color);
+  background: transparent;
+  color: var(--type-color);
+}
+
+/* GLASS */
+.variant--glass {
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: var(--text);
+  backdrop-filter: blur(25px) saturate(250%);
+  -webkit-backdrop-filter: blur(25px) saturate(250%);
+  border: 1px solid color-mix(in srgb, var(--type-color) 10%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--type-color) 30%, transparent);
+}
+
+/* GRADIENT */
+.variant--gradient {
+  border: 1px solid transparent;
+  color: color-mix(in srgb, var(--type-color) 45%, transparent);
+  background:
+  linear-gradient(var(--bg, rgba(255,255,255,0.1)), var(--bg, rgba(255,255,255,0.1))) padding-box,
+  var(--gradient-colors, linear-gradient(135deg,
+      color-mix(in srgb, var(--type-color) 45%, transparent),
+      var(--type-color)
+  )) border-box;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: 1px solid transparent;
+  backdrop-filter: blur(30px) saturate(300%);
+  -webkit-backdrop-filter: blur(30px) saturate(300%);
+  box-shadow: 0 0 8px rgba( var(--type-color-rgb), 0.4 );
+}

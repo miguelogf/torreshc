@@ -1,0 +1,129 @@
+---
+// src/components/sections/Navbar.astro
+import Logo from "@ui/Logo.astro";
+import Button from "@ui/Button.astro";
+
+const links = [
+  { label: "Home", href: "#hero" },
+  { label: "About", href: "#why-us" },
+  { label: "Services", href: "#services" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Contact", href: "#contact" },
+];
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+>
+  <nav
+    class="mx-auto max-w-7xl px-5 md:px-10 h-16 flex items-center justify-between"
+  >
+    <!-- Logo -->
+    <a href="#hero" aria-label="Torres home" class="flex-shrink-0">
+      <Logo size={26} />
+    </a>
+
+    <!-- Links desktop -->
+    <ul class="hidden md:flex items-center gap-1">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="nav-link px-4 py-2 text-sm font-medium text-dark/70 hover:text-dark rounded-full hover:bg-dark/5 transition-all duration-200"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- CTA desktop -->
+    <div class="hidden md:block">
+      <Button href="#contact" variant="primary">Get a Quote</Button>
+    </div>
+
+    <!-- Hamburger mobile -->
+    <button
+      id="menu-btn"
+      class="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8 p-1 rounded-lg text-dark hover:bg-dark/5 transition"
+      aria-label="Menu"
+      aria-expanded="false"
+    >
+      <span
+        class="hamburger-line block h-0.5 bg-current rounded transition-all duration-300"
+      ></span>
+      <span
+        class="hamburger-line block h-0.5 bg-current rounded transition-all duration-300"
+      ></span>
+      <span
+        class="hamburger-line block h-0.5 bg-current rounded transition-all duration-300"
+      ></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden bg-white/95 backdrop-blur-md border-t border-dark/8 px-5 pb-5 pt-3"
+  >
+    <ul class="flex flex-col gap-1 mb-4">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="mobile-nav-link block px-3 py-2.5 text-sm font-medium text-dark/70 hover:text-dark hover:bg-dark/5 rounded-xl transition"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <Button href="#contact" variant="primary" fullWidth>Get a Quote</Button>
+  </div>
+</header>
+
+<script>
+  const navbar = document.getElementById("navbar")!;
+  const menuBtn = document.getElementById("menu-btn")!;
+  const mobileMenu = document.getElementById("mobile-menu")!;
+  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+  function updateNav() {
+    if (window.scrollY > 20) {
+      navbar.classList.add(
+        "bg-white/95",
+        "backdrop-blur-md",
+        "shadow-sm",
+        "border-b",
+        "border-dark/8",
+      );
+    } else {
+      navbar.classList.remove(
+        "bg-white/95",
+        "backdrop-blur-md",
+        "shadow-sm",
+        "border-b",
+        "border-dark/8",
+      );
+    }
+  }
+  window.addEventListener("scroll", updateNav, { passive: true });
+  updateNav();
+
+  menuBtn.addEventListener("click", () => {
+    const open = mobileMenu.classList.toggle("hidden");
+    menuBtn.setAttribute("aria-expanded", String(!open));
+  });
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.add("hidden");
+      menuBtn.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>

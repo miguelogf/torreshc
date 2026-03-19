@@ -1,0 +1,119 @@
+---
+interface Props {
+  id?: string;
+  type?: "success" | "warning" | "error" | "info" | "neutral" | "brand";
+  variant?:
+    | "solid"
+    | "soft"
+    | "subtle"
+    | "outline"
+    | "ghost"
+    | "surface"
+    | "glass"
+    | "gradient";
+  color?: string;
+  textColor?: string;
+  class?: string;
+  style?: string;
+  animate?: "fade" | "pulse" | "bounce" | "float" | "none";
+}
+
+const {
+  id,
+  type = "neutral",
+  variant = "soft",
+  color,
+  textColor,
+  animate = "none",
+  class: className = "",
+  style: styleOverride = "",
+} = Astro.props;
+
+function contrastColor(hex: string): string {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 128 ? "#000000" : "#ffffff";
+}
+
+const resolvedTextColor =
+  textColor ??
+  (variant === "solid" && color ? contrastColor(color) : undefined);
+
+const style = [
+  color ? `--type-color: ${color}` : undefined,
+  resolvedTextColor ? `--type-text: ${resolvedTextColor}` : undefined,
+  styleOverride || undefined,
+]
+  .filter(Boolean)
+  .join("; ");
+---
+
+<span
+  id={id}
+  class:list={[
+    "badge",
+    `type--${type}`,
+    `variant--${variant}`,
+    animate !== "none" && `animate--${animate}`,
+    className,
+  ]}
+  style={style}
+>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-family: var(--font-code);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .badge--xs {
+    font-size: 0.5rem;
+    padding: 0.25rem 0.6rem;
+  }
+  .badge--sm {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+  }
+  .badge--md {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.9rem;
+  }
+  .badge--lg {
+    font-size: 0.85rem;
+    padding: 0.45rem 1rem;
+  }
+  .badge--xl {
+    font-size: 1rem;
+    padding: 0.55rem 1.2rem;
+  }
+
+  .animate--fade {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .animate--pulse {
+    animation: pulse 2s infinite;
+  }
+
+  .animate--bounce {
+    animation: bounce 1s both;
+  }
+
+  .animate--float {
+    animation: float 3s ease-in-out infinite;
+  }
+</style>

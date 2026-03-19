@@ -1,0 +1,39 @@
+---
+// src/components/ui/SectionHeader.astro
+import Badge from "@ui/Badge.astro";
+
+interface Props {
+  badge?: string;
+  title: string;
+  description?: string;
+  align?: "left" | "center";
+  class?: string;
+}
+
+const {
+  badge,
+  title,
+  description,
+  align = "center",
+  class: className = "",
+} = Astro.props;
+
+const alignClass =
+  align === "left" ? "items-start text-left" : "items-center text-center";
+---
+
+<div class:list={["flex flex-col gap-3 max-w-2xl", alignClass, className]}>
+  {badge && <Badge>{badge}</Badge>}
+  <h2
+    class="section-header-title text-3xl md:text-4xl font-bold text-dark leading-tight tracking-tight"
+  >
+    {title}
+  </h2>
+  {
+    description && (
+      <p class="section-header-desc text-base text-dark/60 leading-relaxed">
+        {description}
+      </p>
+    )
+  }
+</div>
