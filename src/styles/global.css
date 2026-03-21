@@ -17,8 +17,7 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-gutter: stable;
-  overflow-y: scroll;
+  scrollbar-gutter: auto;
   touch-action: manipulation;
 }
 
@@ -30,16 +29,19 @@ html {
 
 
 ::-webkit-scrollbar        { width: 3px; }
-::-webkit-scrollbar-track  { background: var(--color-dark); }
+::-webkit-scrollbar-track  { background: var(--color-dark) }
 ::-webkit-scrollbar-thumb  { background: var(--color-primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 47, 55, 0.55);
+}
 
 button {
   cursor: pointer;
 }
 
 ::selection {
-  background: var(--color-primary);
-  color: var(--color-dark);
+  background: var(--color-dark);
+  color: var(--color-surface);
 }
 
 /* ── Animations ── */

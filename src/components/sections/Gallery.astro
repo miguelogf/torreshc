@@ -94,95 +94,152 @@ const categories = [
 </section>
 
 <!-- ── LIGHTBOX MODAL ─────────────────────────────────────────────────── -->
+
+<!-- Backdrop: always in DOM, toggled via opacity so backdrop-filter never breaks -->
+<div
+  id="gallery-backdrop"
+  class="fixed inset-0 z-99 pointer-events-none opacity-0 transition-opacity duration-300 gallery-backdrop"
+  style="background:rgba(0,0,0,0.65);"
+>
+</div>
+
+<!-- Modal wrapper: hidden/flex toggle, no blur on this element -->
 <div
   id="gallery-modal"
-  class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-8"
+  class="fixed inset-0 z-100 hidden"
   role="dialog"
   aria-modal="true"
   aria-label="Photo gallery"
-  style="background: rgba(10,10,10,0.70);"
 >
-  <!-- Blur overlay: separate persistent element so display:none never kills it -->
+  <!-- ── DESKTOP: centered panel (md+) ── -->
   <div
-    id="gallery-backdrop"
-    class="fixed inset-0 -z-10 opacity-0 transition-opacity duration-300"
-    style="backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);"
+    id="gallery-panel-desktop"
+    class="hidden md:flex items-center justify-center w-full h-full p-8"
   >
+    <div
+      class="bg-white rounded-2xl w-full max-w-6xl flex flex-col overflow-hidden shadow-2xl"
+      style="max-height:min(90dvh,90vh);"
+    >
+      <!-- Header -->
+      <div
+        class="flex items-center justify-between px-6 py-4 border-b border-dark/8 shrink-0"
+      >
+        <div class="flex flex-wrap gap-2" id="modal-filters-desktop">
+          {
+            categories.map((cat) => (
+              <button
+                class="filter-btn px-4 py-1.5 text-sm rounded-full border transition-all duration-200"
+                data-cat={cat}
+              >
+                {cat}
+              </button>
+            ))
+          }
+        </div>
+        <button
+          id="close-desktop"
+          aria-label="Close"
+          class="w-9 h-9 rounded-full bg-dark/6 flex items-center justify-center text-dark/50 hover:bg-dark/10 hover:text-dark transition-all shrink-0 ml-4"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            ><line x1="2" y1="2" x2="12" y2="12"></line><line
+              x1="12"
+              y1="2"
+              x2="2"
+              y2="12"></line></svg
+          >
+        </button>
+      </div>
+
+      <!-- Grid -->
+      <div class="flex-1 overflow-y-auto px-6 py-6">
+        <div
+          class="columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
+          id="modal-grid-desktop"
+        >
+          {
+            gallery.map((item) => (
+              <div
+                class="modal-item break-inside-avoid overflow-hidden rounded-xl group relative"
+                data-cat={item.category}
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  loading="lazy"
+                  class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/50 transition-all duration-300 flex items-end p-3">
+                  <span class="text-white text-xs font-medium opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+                    {item.alt}
+                  </span>
+                </div>
+                <span class="absolute top-2 left-2 px-2 py-0.5 bg-white/90 text-dark text-[10px] font-semibold rounded-full">
+                  {item.category}
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Panel -->
+  <!-- ── MOBILE: bottom sheet (up to md) ── -->
   <div
-    class="relative bg-[#1a1a1a] rounded-2xl w-full max-w-6xl flex flex-col overflow-hidden shadow-2xl"
-    style="max-height:min(90dvh,90vh);"
+    id="gallery-sheet"
+    class="md:hidden absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl flex flex-col shadow-2xl"
+    style="max-height:90dvh; height:90dvh;"
   >
-    <!-- Modal header -->
-    <div
-      class="flex items-center justify-between px-5 md:px-8 py-5 border-b border-white/8 shrink-0"
-    >
-      <div class="flex flex-wrap gap-2" id="modal-filters">
-        {
-          categories.map((cat) => (
-            <button
-              class="modal-filter-btn px-4 py-1.5 text-sm rounded-full border transition-all duration-200"
-              data-cat={cat}
-            >
-              {cat}
-            </button>
-          ))
-        }
-      </div>
-      <button
-        id="close-gallery-btn"
-        aria-label="Close gallery"
-        class="w-9 h-9 rounded-full bg-white/8 flex items-center justify-center text-white/60 hover:bg-white/15 hover:text-white transition-all duration-200 shrink-0 ml-4"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="3" y1="3" x2="13" y2="13"></line><line
-            x1="13"
-            y1="3"
-            x2="3"
-            y2="13"></line>
-        </svg>
-      </button>
+    <!-- Handle -->
+    <div class="flex justify-center pt-3 pb-2 shrink-0">
+      <div class="w-10 h-1 bg-dark/15 rounded-full"></div>
     </div>
 
-    <!-- Modal grid -->
+    <!-- Filters -->
     <div
-      class="flex-1 overflow-y-auto px-5 md:px-8 py-6"
+      class="filters-mobile flex items-center gap-2 px-4 pb-3 border-b border-dark/8 shrink-0 overflow-x-auto"
+      id="modal-filters-mobile"
       style="-webkit-overflow-scrolling:touch;"
     >
-      <div
-        id="modal-grid"
-        class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
-      >
+      {
+        categories.map((cat) => (
+          <button
+            class="filter-btn shrink-0 px-4 py-1.5 text-sm rounded-full border transition-all duration-200"
+            data-cat={cat}
+          >
+            {cat}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Grid -->
+    <div
+      class="flex-1 overflow-y-auto px-4 py-4"
+      style="-webkit-overflow-scrolling:touch;"
+    >
+      <div class="columns-2 gap-3 space-y-3" id="modal-grid-mobile">
         {
           gallery.map((item) => (
             <div
-              class="modal-item break-inside-avoid overflow-hidden rounded-xl group relative cursor-pointer"
+              class="modal-item break-inside-avoid overflow-hidden rounded-xl group relative"
               data-cat={item.category}
-              data-id={item.id}
             >
               <img
                 src={item.src}
                 alt={item.alt}
                 loading="lazy"
-                class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                class="w-full h-auto object-cover"
               />
-              <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/60 transition-all duration-300 flex items-end p-4">
-                <span class="text-white text-sm font-medium opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 leading-snug">
-                  {item.alt}
-                </span>
-              </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 bg-white/90 text-dark text-[11px] font-semibold rounded-full backdrop-blur-sm">
+              <span class="absolute top-2 left-2 px-2 py-0.5 bg-white/90 text-dark text-[10px] font-semibold rounded-full">
                 {item.category}
               </span>
             </div>
@@ -190,91 +247,153 @@ const categories = [
         }
       </div>
     </div>
-  </div><!-- /Panel -->
+
+    <!-- Close bar -->
+    <div class="shrink-0 px-4 py-4 border-t border-dark/8">
+      <button
+        id="close-mobile"
+        class="w-full py-3 bg-dark text-white text-sm font-semibold rounded-xl hover:bg-dark/85 transition-colors"
+      >
+        Close
+      </button>
+    </div>
+  </div>
 </div>
 
 <style>
-  /* Preview item cursor */
   .preview-item {
     cursor: default;
   }
 
-  /* Modal filter buttons */
-  .modal-filter-btn {
+  .filter-btn {
     background: transparent;
-    border-color: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.55);
+    border-color: rgba(17, 17, 17, 0.15);
+    color: rgba(17, 17, 17, 0.55);
+    white-space: nowrap;
   }
-  .modal-filter-btn:hover,
-  .modal-filter-btn.active {
-    background: #ffffff;
-    border-color: #ffffff;
-    color: #111111;
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: #111111;
+    border-color: #111111;
+    color: #ffffff;
   }
 
-  /* Prevent body scroll when modal open — position:fixed keeps the page
-     in place while overflow:hidden locks it. The JS saves/restores scrollY. */
+  /* Blur only on desktop */
+  @media (min-width: 768px) {
+    .gallery-backdrop {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+  }
+
+  /* Bottom sheet — CSS owns all transform/transition */
+  #gallery-sheet {
+    transform: translateY(100%);
+    transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+  }
+  #gallery-sheet.open {
+    transform: translateY(0);
+  }
+
+  /* Lock body scroll */
   body.modal-open {
     position: fixed;
     left: 0;
     right: 0;
-    overflow-y: scroll; /* keep scrollbar gutter so layout doesn't shift */
+    overflow-y: scroll;
+  }
+
+  /* Mobile horizontal filter scrollbar — thin, transparent track, gray thumb */
+  .filters-mobile {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(17, 17, 17, 0.25) transparent;
+  }
+  .filters-mobile::-webkit-scrollbar {
+    height: 2px;
+  }
+  .filters-mobile::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .filters-mobile::-webkit-scrollbar-thumb {
+    background: rgba(17, 17, 17, 0.22);
+    border-radius: 2px;
   }
 </style>
 
 <script>
   const openBtn = document.getElementById("open-gallery-btn")!;
-  const closeBtn = document.getElementById("close-gallery-btn")!;
   const modal = document.getElementById("gallery-modal")!;
-  const modalItems = document.querySelectorAll<HTMLElement>(".modal-item");
+  const backdrop = document.getElementById("gallery-backdrop")!;
+  const sheet = document.getElementById("gallery-sheet")!;
+  const closeDesktop = document.getElementById("close-desktop")!;
+  const closeMobile = document.getElementById("close-mobile")!;
   const filterBtns =
-    document.querySelectorAll<HTMLButtonElement>(".modal-filter-btn");
+    document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const modalItems = document.querySelectorAll<HTMLElement>(".modal-item");
 
   let savedScrollY = 0;
 
-  const backdrop = document.getElementById("gallery-backdrop")!;
+  // Start hidden
+  modal.style.display = "none";
 
-  // Open — save scroll position, lock body in place
-  openBtn.addEventListener("click", () => {
+  function openModal() {
     savedScrollY = window.scrollY;
     document.body.style.top = `-${savedScrollY}px`;
     document.body.classList.add("modal-open");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-    // Small delay so the element is painted before blur activates (mobile fix)
-    requestAnimationFrame(() => (backdrop.style.opacity = "1"));
-    filterBtns[0]?.click();
-  });
 
-  // Close — restore scroll position exactly
+    // Use position:relative wrapper visible as flex container
+    modal.style.display = "flex";
+
+    // Backdrop
+    requestAnimationFrame(() => {
+      backdrop.style.opacity = "1";
+    });
+
+    // Sheet slides up — needs two rAF so browser paints first
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        sheet.classList.add("open");
+      });
+    });
+
+    filterBtns[0]?.click();
+  }
+
   function closeModal() {
     backdrop.style.opacity = "0";
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
+    backdrop.style.pointerEvents = "none";
+    sheet.classList.remove("open");
+
+    // Hide after sheet slides out
+    setTimeout(() => {
+      modal.style.display = "none";
+    }, 400);
+
     document.body.classList.remove("modal-open");
     document.body.style.top = "";
     window.scrollTo({ top: savedScrollY, behavior: "instant" });
   }
 
-  closeBtn.addEventListener("click", closeModal);
+  openBtn.addEventListener("click", openModal);
+  closeDesktop.addEventListener("click", closeModal);
+  closeMobile.addEventListener("click", closeModal);
 
-  // Close on backdrop click (outside modal content)
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
+  // Desktop: click backdrop to close
+  backdrop.addEventListener("click", (e) => {
+    if (window.innerWidth >= 768) closeModal();
   });
 
-  // Close on Escape
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
   });
 
-  // Filters
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      filterBtns.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
       const cat = btn.dataset.cat!;
+      filterBtns.forEach((b) =>
+        b.classList.toggle("active", b.dataset.cat === cat),
+      );
       modalItems.forEach((item) => {
         item.style.display =
           cat === "All" || item.dataset.cat === cat ? "" : "none";
