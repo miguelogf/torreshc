@@ -3,7 +3,17 @@
 import Section from "@ui/Section.astro";
 import { gallery } from "@data/gallery";
 
-const categories = ["All", ...new Set(gallery.map((g) => g.category))];
+// Show only first 6 in the preview grid
+const PREVIEW_COUNT = 6;
+const preview = gallery.slice(0, PREVIEW_COUNT);
+const categories = [
+  "All",
+  "Drywall",
+  "Painting",
+  "Flooring",
+  "Carpentry",
+  "Renovations",
+] as const;
 ---
 
 <section id="gallery" class="py-24 bg-[#F7F7F5]">
@@ -16,15 +26,94 @@ const categories = ["All", ...new Set(gallery.map((g) => g.category))];
         align="left"
         badge="Our work"
         title="Projects that speak for themselves"
-        description="A curated selection of residential, commercial, and remodeling work."
+        description="A curated selection of our Drywall, Painting, Flooring, Carpentry and Renovation work."
       />
+    </div>
 
-      <!-- Category filters -->
-      <div class="flex flex-wrap gap-2" id="gallery-filters">
+    <!-- Preview grid with fade -->
+    <div class="relative">
+      <div
+        id="masonry-preview"
+        class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
+      >
+        {
+          preview.map((item) => (
+            <div
+              class="preview-item break-inside-avoid overflow-hidden rounded-xl group relative cursor-pointer"
+              data-id={item.id}
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/50 transition-all duration-300 flex items-end p-4">
+                <span class="text-white text-sm font-medium opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                  {item.alt}
+                </span>
+              </div>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 bg-white/90 text-dark text-[11px] font-semibold rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {item.category}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Fade overlay -->
+      <div
+        class="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+        style="background: linear-gradient(to top, #F7F7F5 10%, transparent 100%);"
+      >
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="flex justify-center -mt-4">
+      <button
+        id="open-gallery-btn"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-dark text-white text-sm font-medium rounded-full hover:bg-dark/85 transition-colors duration-200"
+      >
+        View all projects
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 8h10M9 4l4 4-4 4"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── LIGHTBOX MODAL ─────────────────────────────────────────────────── -->
+<div
+  id="gallery-modal"
+  class="fixed inset-0 z-[100] bg-dark/60 backdrop-blur-sm hidden items-center justify-center p-4 md:p-8"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Photo gallery"
+>
+  <!-- Panel -->
+  <div
+    class="relative bg-[#1a1a1a] rounded-2xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl"
+  >
+    <!-- Modal header -->
+    <div
+      class="flex items-center justify-between px-5 md:px-8 py-5 border-b border-white/8 shrink-0"
+    >
+      <div class="flex flex-wrap gap-2" id="modal-filters">
         {
           categories.map((cat) => (
             <button
-              class="filter-btn px-4 py-1.5 text-sm rounded-full border transition-all duration-200"
+              class="modal-filter-btn px-4 py-1.5 text-sm rounded-full border transition-all duration-200"
               data-cat={cat}
             >
               {cat}
@@ -32,68 +121,133 @@ const categories = ["All", ...new Set(gallery.map((g) => g.category))];
           ))
         }
       </div>
+      <button
+        id="close-gallery-btn"
+        aria-label="Close gallery"
+        class="w-9 h-9 rounded-full bg-white/8 flex items-center justify-center text-white/60 hover:bg-white/15 hover:text-white transition-all duration-200 shrink-0 ml-4"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="3" y1="3" x2="13" y2="13"></line><line
+            x1="13"
+            y1="3"
+            x2="3"
+            y2="13"></line>
+        </svg>
+      </button>
     </div>
 
-    <!-- Masonry — CSS columns -->
-    <div
-      id="masonry-grid"
-      class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
-    >
-      {
-        gallery.map((item) => (
-          <div
-            class="gallery-item break-inside-avoid overflow-hidden rounded-xl group relative cursor-pointer"
-            data-cat={item.category}
-          >
-            <img
-              src={item.src}
-              alt={item.alt}
-              loading="lazy"
-              class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/50 transition-all duration-300 flex items-end p-4">
-              <span class="text-white text-sm font-medium opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                {item.alt}
+    <!-- Modal grid -->
+    <div class="flex-1 overflow-y-auto px-5 md:px-8 py-6">
+      <div
+        id="modal-grid"
+        class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
+      >
+        {
+          gallery.map((item) => (
+            <div
+              class="modal-item break-inside-avoid overflow-hidden rounded-xl group relative cursor-pointer"
+              data-cat={item.category}
+              data-id={item.id}
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/60 transition-all duration-300 flex items-end p-4">
+                <span class="text-white text-sm font-medium opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 leading-snug">
+                  {item.alt}
+                </span>
+              </div>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 bg-white/90 text-dark text-[11px] font-semibold rounded-full backdrop-blur-sm">
+                {item.category}
               </span>
             </div>
-            <span class="absolute top-3 left-3 px-2.5 py-0.5 bg-white/90 text-dark text-[11px] font-semibold rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {item.category}
-            </span>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
     </div>
-  </div>
-</section>
+  </div><!-- /Panel -->
+</div>
 
 <style>
-  .filter-btn {
-    background: transparent;
-    border-color: rgba(17, 17, 17, 0.15);
-    color: rgba(17, 17, 17, 0.6);
+  /* Preview item cursor */
+  .preview-item {
+    cursor: default;
   }
-  .filter-btn:hover,
-  .filter-btn.active {
-    background: #111111;
-    border-color: #111111;
-    color: #ffffff;
+
+  /* Modal filter buttons */
+  .modal-filter-btn {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .modal-filter-btn:hover,
+  .modal-filter-btn.active {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #111111;
+  }
+
+  /* Prevent body scroll when modal open */
+  body.modal-open {
+    overflow: hidden;
   }
 </style>
 
 <script>
+  const openBtn = document.getElementById("open-gallery-btn")!;
+  const closeBtn = document.getElementById("close-gallery-btn")!;
+  const modal = document.getElementById("gallery-modal")!;
+  const modalItems = document.querySelectorAll<HTMLElement>(".modal-item");
   const filterBtns =
-    document.querySelectorAll<HTMLButtonElement>(".filter-btn");
-  const items = document.querySelectorAll<HTMLElement>(".gallery-item");
+    document.querySelectorAll<HTMLButtonElement>(".modal-filter-btn");
 
-  filterBtns[0]?.classList.add("active");
+  // Open
+  openBtn.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.body.classList.add("modal-open");
+    filterBtns[0]?.click();
+  });
 
+  // Close
+  function closeModal() {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.classList.remove("modal-open");
+  }
+
+  closeBtn.addEventListener("click", closeModal);
+
+  // Close on backdrop click (outside modal content)
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+
+  // Filters
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       filterBtns.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
       const cat = btn.dataset.cat!;
-      items.forEach((item) => {
+      modalItems.forEach((item) => {
         item.style.display =
           cat === "All" || item.dataset.cat === cat ? "" : "none";
       });
