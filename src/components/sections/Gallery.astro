@@ -1,9 +1,7 @@
 ---
-// src/components/sections/Gallery.astro
 import Section from "@ui/Section.astro";
 import { gallery } from "@data/gallery";
 
-// Show only first 6 in the preview grid
 const PREVIEW_COUNT = 6;
 const preview = gallery.slice(0, PREVIEW_COUNT);
 const categories = [
