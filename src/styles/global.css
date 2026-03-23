@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #dc2626;
-  --color-secondary: #1e3a5f;
-  --color-dark: #1f2421;
+  --color-primary: #e53037;
+  --color-dark: #152A33;
   --color-bg: #f7f4ee;
   --color-surface: #fffdf8;
   --color-muted: #6f746d;
   --color-border: #ddd6c8;
-  --color-footer: #1e3a5f;
+  --color-footer: #0E1E25;
 
   --font-sans: 'Poppins', sans-serif;
-  --font-serif: 'Poppins', sans-serif;
+  --font-display: 'Bodoni Moda', serif;
+  --font-serif: 'Bodoni Moda', serif;
 
   --radius-lg: 10px;
 }

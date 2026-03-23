@@ -19,12 +19,15 @@ const textColor = variant === "light" ? "text-white" : "text-dark";
     <img src={logo.src} alt="Torres Home logo" class="block w-full h-full" />
   </div>
 
-  <div translate="no" class={`flex items-center leading-none ${textColor}`}>
+  <div
+    translate="no"
+    class={`flex flex-col items-center leading-none ${textColor}`}
+  >
     <span
       class="font-semibold tracking-[-0.03em]"
-      style={`font-size:${size * 0.76}px`}
+      style={`font-size:${size * 0.7}px`}
     >
-      Torres <span class="text-primary">Home</span>
+      Torres <br /><span class="text-primary">Home</span>
     </span>
   </div>
 </div>
