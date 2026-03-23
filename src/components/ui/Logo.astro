@@ -11,19 +11,20 @@ const { size = 20, variant = "dark" } = Astro.props;
 const textColor = variant === "light" ? "text-white" : "text-dark";
 ---
 
-<div class="flex items-center gap-1" style={`--logo-size:${size}px`}>
+<div class="flex items-center gap-2.5" style={`--logo-size:${size}px`}>
   <div
     class="flex items-center shrink-0"
     style={`width:${size}px; height:${size}px`}
   >
-    <img src={logo.src} alt="Torres logo" class="block w-full h-full" />
+    <img src={logo.src} alt="Torres Home logo" class="block w-full h-full" />
   </div>
 
-  <span
-    translate="no"
-    class={`flex items-center font-bold leading-none font-serif ${textColor}`}
-    style={`font-size:${size * 0.9}px`}
-  >
-    Torres Home<span class="text-primary">.</span>
-  </span>
+  <div translate="no" class={`flex items-center leading-none ${textColor}`}>
+    <span
+      class="font-semibold tracking-[-0.03em]"
+      style={`font-size:${size * 0.76}px`}
+    >
+      Torres <span class="text-primary">Home</span>
+    </span>
+  </div>
 </div>

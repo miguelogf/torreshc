@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #dd2619;
-  --color-dark: #1a2f37;
-  --color-bg: #F5F5F5;
-  --color-surface: #FFFFFF;
-  --color-muted: #6B7280;
-  --color-border: #E5E7EB;
-  --color-footer: #0E1E25;
+  --color-primary: #c76b4a;
+  --color-dark: #1f2421;
+  --color-bg: #f7f4ee;
+  --color-surface: #fffdf8;
+  --color-muted: #6f746d;
+  --color-border: #ddd6c8;
+  --color-footer: #171b18;
 
-  --font-sans: 'Inter Variable', sans-serif;
-  --font-serif: 'DM Serif Display', serif;
+  --font-sans: 'Poppins', sans-serif;
+  --font-serif: 'Poppins', sans-serif;
 
   --radius-lg: 10px;
 }
@@ -37,6 +37,12 @@ html {
 
 button {
   cursor: pointer;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-dark);
 }
 
 ::selection {
