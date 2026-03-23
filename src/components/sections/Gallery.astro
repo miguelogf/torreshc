@@ -1,6 +1,7 @@
 ---
 import Section from "@ui/Section.astro";
 import { gallery } from "@data/gallery";
+import Button from "../ui/Button.astro";
 
 const PREVIEW_COUNT = 6;
 const preview = gallery.slice(0, PREVIEW_COUNT);
@@ -74,9 +75,8 @@ const categories = [
 
     <!-- CTA -->
     <div class="flex justify-center -mt-4">
-      <button
+      <Button
         id="open-gallery-btn"
-        class="group inline-flex items-center gap-2 px-7 py-3 bg-dark text-white text-sm font-medium rounded-full hover:bg-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
       >
         View all projects
         <svg
@@ -92,7 +92,7 @@ const categories = [
         >
           <path d="M3 8h10M9 4l4 4-4 4"></path>
         </svg>
-      </button>
+      </Button>
     </div>
   </div>
 </section>

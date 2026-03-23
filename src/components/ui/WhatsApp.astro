@@ -11,18 +11,18 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 ---
 
 <a
-  id="wa-btn"
+  id="whatsapp-btn"
   href={href}
   target="_blank"
   rel="noopener noreferrer"
   aria-label="Chat on WhatsApp"
-  class="wa-btn fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-5 py-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 group"
+  class="whatsapp-btn fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-5 py-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 group"
 >
   <!-- WhatsApp icon -->
   <Icon name="whatsapp" />
 
   <span
-    class="wa-label text-sm font-semibold leading-none transition-colors duration-300"
+    class="whatsapp-label text-sm font-semibold leading-none transition-colors duration-300"
   >
     Chat
   </span>
@@ -30,14 +30,14 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
 <style>
   /* Default: dark button (on light sections) */
-  .wa-btn {
+  .whatsapp-btn {
     background-color: #111111;
     color: #ffffff;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
   }
 
   /* On dark sections: flip to surface (white) */
-  .wa-btn.on-dark {
+  .whatsapp-btn.on-dark {
     background-color: #ffffff;
     color: #111111;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
@@ -45,7 +45,7 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 </style>
 
 <script>
-  const btn = document.getElementById("wa-btn")!;
+  const btn = document.getElementById("whatsapp-btn")!;
   const contact = document.getElementById("contact");
 
   function update() {

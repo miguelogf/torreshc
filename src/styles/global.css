@@ -2,15 +2,14 @@
 
 @theme {
   --color-primary: #b85c38;
-  --color-primary-deep: #8f4427;
   --color-accent: #d9aa6b;
-  --color-dark: #1c211d;
+  --color-dark: #152A33;
   --color-bg: #f4efe6;
   --color-surface: #fbf7f1;
   --color-surface-strong: #f0e6d7;
   --color-muted: #676257;
   --color-border: #d9cfbf;
-  --color-footer: #171b18;
+  --color-footer: #0E1E25;
 
   --font-sans: "Manrope", sans-serif;
   --font-display: "Cormorant Garamond", serif;

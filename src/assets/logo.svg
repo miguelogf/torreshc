@@ -4,18 +4,18 @@
   <defs>
     <style>
       .st0 {
-        fill: #e53037;
+        fill: #b85c38;
       }
     </style>
   </defs>
   <g id="Capa_2">
     <g id="Capa_1-2">
-      <rect class="st0" x="0" y="17.1" width="6.4" height="6.4"/>
-      <rect class="st0" x="0" y="8.5" width="6.4" height="6.4"/>
-      <polygon class="st0" points="32 14.6 17.6 14.6 17.6 0 32 14.6"/>
-      <rect class="st0" x="0" y="25.6" width="6.4" height="6.4"/>
-      <rect class="st0" x="17.6" y="17.6" width="14.4" height="14.4"/>
-      <polygon class="st0" points="15.1 0 0 0 0 6.4 8.7 6.4 8.7 32 15.1 32 15.1 0"/>
+      <rect class="st0" x="0" y="17.1" width="6.4" height="6.4" />
+      <rect class="st0" x="0" y="8.5" width="6.4" height="6.4" />
+      <polygon class="st0" points="32 14.6 17.6 14.6 17.6 0 32 14.6" />
+      <rect class="st0" x="0" y="25.6" width="6.4" height="6.4" />
+      <rect class="st0" x="17.6" y="17.6" width="14.4" height="14.4" />
+      <polygon class="st0" points="15.1 0 0 0 0 6.4 8.7 6.4 8.7 32 15.1 32 15.1 0" />
     </g>
   </g>
 </svg>

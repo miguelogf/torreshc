@@ -82,7 +82,7 @@ const links = [
         ))
       }
     </ul>
-    <Button href="#contact" variant="primary" fullWidth>Get a Quote</Button>
+    <Button href="#contact" variant="primary" isFullWidth>Get a Quote</Button>
   </div>
 </header>
 
@@ -96,14 +96,14 @@ const links = [
     const nav = navbar.querySelector("nav");
     if (window.scrollY > 20) {
       nav?.classList.add(
-        "bg-[color:var(--color-surface)]/88",
+        "bg-[color:var(--color-surface)]/75",
         "backdrop-blur-xl",
         "shadow-[0_18px_40px_-30px_rgba(28,33,29,0.6)]",
         "border-dark/8",
       );
     } else {
       nav?.classList.remove(
-        "bg-[color:var(--color-surface)]/88",
+        "bg-[color:var(--color-surface)]/75",
         "backdrop-blur-xl",
         "shadow-[0_18px_40px_-30px_rgba(28,33,29,0.6)]",
         "border-dark/8",

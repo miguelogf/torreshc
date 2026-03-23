@@ -1,53 +1,166 @@
 ---
-export interface Props {
-  variant?: "primary" | "outline" | "ghost";
-  type?: "button" | "submit" | "reset";
-  href?: string;
-  newTab?: boolean;
-  fullWidth?: boolean;
-  class?: string;
-  [key: string]: unknown;
-}
+import type { HTMLAttributes } from "astro/types";
+
+type ButtonVariant = "primary" | "outline" | "ghost";
+type ButtonType = "button" | "submit" | "reset";
+
+type Props =
+  | {
+      id?: string;
+      variant?: ButtonVariant;
+      href: string;
+      isNewTab?: boolean;
+      isFullWidth?: boolean;
+      isDisabled?: boolean;
+      ariaLabel?: string;
+      className?: string;
+      anchorProps?: HTMLAttributes<"a">;
+      buttonType?: never;
+      htmlProps?: never;
+    }
+  | {
+      id?: string;
+      variant?: ButtonVariant;
+      href?: never;
+      isNewTab?: never;
+      isFullWidth?: boolean;
+      isDisabled?: boolean;
+      ariaLabel?: string;
+      className?: string;
+      buttonType?: ButtonType;
+      htmlProps?: HTMLAttributes<"button">;
+      anchorProps?: never;
+    };
 
 const {
+  id,
   variant = "primary",
-  type = "button",
+  buttonType = "button",
   href,
-  newTab = false,
-  fullWidth = false,
-  class: className = "",
-  ...rest
+  isNewTab = false,
+  isFullWidth = false,
+  isDisabled = false,
+  ariaLabel,
+  className = "",
+  htmlProps = {},
+  anchorProps = {},
 } = Astro.props;
 
-const base =
-  "inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-semibold tracking-[0.08em] uppercase rounded-full cursor-pointer no-underline transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-2 relative overflow-hidden";
+const isInteractive = href !== undefined;
 
-const variants = {
-  primary:
-    "bg-primary border border-primary text-white shadow-[0_18px_40px_-20px_rgba(184,92,56,0.9)] hover:shadow-[0_22px_48px_-20px_rgba(184,92,56,0.95)] hover:bg-primary-deep hover:border-primary-deep",
-  outline:
-    "bg-transparent border border-dark/16 text-dark hover:bg-dark hover:text-[var(--color-surface)] hover:border-dark transition-all duration-300",
-  ghost:
-    "bg-transparent border-transparent text-dark/60 opacity-80 px-2 hover:bg-dark/5 hover:text-dark hover:opacity-100",
+const componentClass = [
+  "button",
+  `button--${variant}`,
+  isFullWidth && "button--fullWidth",
+  isDisabled && "button--disabled",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+
+const mergeClass = (externalClass?: string) =>
+  [componentClass, externalClass].filter(Boolean).join(" ");
+
+const sharedProps = {
+  id: id,
+  "aria-label": ariaLabel,
+  "aria-disabled": isDisabled || undefined,
 };
-
-const classes = [base, variants[variant], fullWidth ? "w-full" : ""].join(" ");
 ---
 
 {
-  href ? (
+  isInteractive ? (
     <a
-      href={href}
-      target={newTab ? "_blank" : undefined}
-      rel={newTab ? "noopener noreferrer" : undefined}
-      class:list={[classes, className]}
-      {...rest}
+      href={isDisabled ? undefined : href}
+      target={isNewTab ? "_blank" : undefined}
+      rel={isNewTab ? "noopener noreferrer" : undefined}
+      class={mergeClass(anchorProps.class as string)}
+      {...sharedProps}
+      {...anchorProps}
     >
       <slot />
     </a>
   ) : (
-    <button type={type} class:list={[classes, className]} {...rest}>
+    <button
+      type={buttonType}
+      disabled={isDisabled}
+      class={mergeClass(htmlProps.class as string)}
+      {...sharedProps}
+      {...htmlProps}
+    >
       <slot />
     </button>
   )
 }
+
+<style>
+  .button {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 160ms ease;
+  }
+
+  .button--primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .button--outline {
+    background-color: transparent;
+    border-color: var(--color-dark);
+    color: var(--color-dark);
+  }
+
+  .button--ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--color-dark);
+    padding: 8px;
+  }
+
+  .button:hover:not(.button--disabled) {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .button--ghost:hover:not(.button--disabled) {
+    background-color: var(--color-muted);
+  }
+
+  .button:active:not(.button--disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .button--fullWidth {
+    width: 100%;
+  }
+
+  .button--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .button--fullWidth {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+</style>

@@ -1,7 +1,18 @@
-<section id="cta" class="cta-section py-32 md:py-44 bg-white overflow-hidden relative">
+---
+import Button from "../ui/Button.astro";
+---
+
+<section
+  id="cta"
+  class="cta-section py-32 md:py-44 bg-white overflow-hidden relative"
+>
   <!-- Ambient backgrounds -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] pointer-events-none opacity-40" style="background:radial-gradient(ellipse at center, rgba(221,38,25,0.05) 0%, transparent 70%);"></div>
-  
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] pointer-events-none opacity-40"
+    style="background:radial-gradient(ellipse at center, rgba(221,38,25,0.05) 0%, transparent 70%);"
+  >
+  </div>
+
   <div
     class="max-w-5xl mx-auto px-5 md:px-10 text-center flex flex-col items-center relative z-10"
   >
@@ -30,10 +41,7 @@
         No guesswork, no delays — just clean work delivered on time and on
         budget.
       </p>
-      <a
-        href="https://wa.me/17042775688"
-        class="cta-btn inline-flex items-center gap-2 px-8 py-4 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:gap-4 hover:shadow-xl hover:shadow-primary/25 hover:scale-[1.02] active:scale-[0.98]"
-      >
+      <Button isNewTab href="https://api.whatsapp.com/send?phone=17042775688">
         Start your project
         <svg
           width="18"
@@ -48,7 +56,7 @@
         >
           <path d="M3 9h12M9 3l6 6-6 6"></path>
         </svg>
-      </a>
+      </Button>
     </div>
   </div>
 </section>
