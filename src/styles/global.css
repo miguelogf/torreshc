@@ -29,9 +29,9 @@ html {
   box-sizing: border-box;
 }
 
-::-webkit-scrollbar        { width: 2px; }
-::-webkit-scrollbar-track  { background: var(--color-dark) }
-::-webkit-scrollbar-thumb  { background: var(--color-surface)/; border-radius: 4px; }
+::-webkit-scrollbar        { width: 1px; }
+::-webkit-scrollbar-track  { background: var(--color-surface) }
+::-webkit-scrollbar-thumb  { background: var(--color-dark); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(26, 47, 55, 0.55);
 }
