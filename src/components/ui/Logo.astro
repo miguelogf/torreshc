@@ -11,7 +11,7 @@ const { size = 20, variant = "dark" } = Astro.props;
 const textColor = variant === "light" ? "text-white/60" : "text-dark/60";
 ---
 
-<div class="flex items-center gap-2.5" style={`--logo-size:${size}px`}>
+<div class="flex items-center gap-2" style={`--logo-size:${size}px`}>
   <div
     class="flex items-center shrink-0"
     style={`width:${size}px; height:${size}px`}

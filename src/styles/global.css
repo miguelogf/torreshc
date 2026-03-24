@@ -31,7 +31,7 @@ html {
 
 ::-webkit-scrollbar        { width: 2px; }
 ::-webkit-scrollbar-track  { background: var(--color-dark) }
-::-webkit-scrollbar-thumb  { background: var(--color-muted); border-radius: 4px; }
+::-webkit-scrollbar-thumb  { background: var(--color-surface)/; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(26, 47, 55, 0.55);
 }
