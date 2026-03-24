@@ -10,12 +10,12 @@
   </defs>
   <g id="Capa_2">
     <g id="Capa_1-2">
-      <rect class="st0" x="0" y="17.1" width="6.4" height="6.4" />
-      <rect class="st0" x="0" y="8.5" width="6.4" height="6.4" />
-      <polygon class="st0" points="32 14.6 17.6 14.6 17.6 0 32 14.6" />
-      <rect class="st0" x="0" y="25.6" width="6.4" height="6.4" />
-      <rect class="st0" x="17.6" y="17.6" width="14.4" height="14.4" />
-      <polygon class="st0" points="15.1 0 0 0 0 6.4 8.7 6.4 8.7 32 15.1 32 15.1 0" />
+      <rect class="st0" x="3" y="16.9" width="5.2" height="5.2" />
+      <rect class="st0" x="3" y="9.9" width="5.2" height="5.2" />
+      <polygon class="st0" points="29 14.9 17.3 14.9 17.3 3 29 14.9" />
+      <rect class="st0" x="3" y="23.8" width="5.2" height="5.2" />
+      <rect class="st0" x="17.3" y="17.3" width="11.7" height="11.7" />
+      <polygon class="st0" points="15.3 3 3 3 3 8.2 10.1 8.2 10.1 29 15.3 29 15.3 3" />
     </g>
   </g>
 </svg>
