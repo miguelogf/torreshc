@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import "@/styles/theme.css";
 
 import "@fontsource/dm-serif-display";
+import SEO from "@/components/SEO.astro";
 
 interface Props {
   title?: string;
@@ -10,8 +11,8 @@ interface Props {
 }
 
 const {
-  title = "Torres Home | Refined remodeling and custom builds",
-  description = "Refined residential construction and remodeling with premium finishes, dependable execution, and design-led craftsmanship.",
+  title = "Torres Home",
+  description = "Quality-first construction, remodeling, and interior design across the USA. Est. 2022. Premium drywall, painting, flooring, and carpentry services.",
 } = Astro.props;
 ---
 
@@ -39,8 +40,7 @@ const {
       />
     </noscript>
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+    <SEO title={title} description={description} />
   </head>
   <body>
     <a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-dark focus:text-white focus:rounded-lg">
