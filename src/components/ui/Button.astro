@@ -107,7 +107,9 @@ const sharedProps = {
     border: 1px solid transparent;
     cursor: pointer;
     text-decoration: none;
-    transition: all 160ms ease;
+    transition-property: opacity, transform, background-color, border-color, color;
+    transition-duration: 160ms;
+    transition-timing-function: ease;
   }
 
   .button--primary {

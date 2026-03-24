@@ -156,6 +156,7 @@ const stats = [
       >
         <span
           class="w-9 h-9 rounded-full bg-primary/12 flex items-center justify-center text-primary text-sm"
+          aria-hidden="true"
           >+</span
         >
         <div>
@@ -206,6 +207,28 @@ const stats = [
   .hero-badge-float.in {
     opacity: 1 !important;
     transform: translate(-0.5rem, -50%) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-el,
+    .hero-badge-float {
+      transition: none;
+      transform: none;
+    }
+    .hero-el.in,
+    .hero-badge-float.in {
+      transform: translateY(0);
+    }
+    .hero-el {
+      opacity: 1;
+    }
+    .hero-badge-float {
+      opacity: 0;
+    }
+    .hero-badge-float.in {
+      opacity: 1;
+      transform: translate(-0.5rem, -50%);
+    }
   }
 </style>
 
