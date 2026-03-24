@@ -4,7 +4,7 @@ import Card from "@ui/Card.astro";
 import { services } from "@data/services";
 ---
 
-<section id="services" class="py-24 bg-bg relative overflow-hidden">
+<section id="services" class="py-24 bg-bg relative overflow-hidden" style="content-visibility: auto; contain-intrinsic-size: 1px 600px;">
   <!-- Subtle ambient -->
   <div
     class="absolute top-1/2 left-0 w-125 h-125 -translate-y-1/2 pointer-events-none opacity-40"
@@ -125,6 +125,7 @@ import { services } from "@data/services";
       btn.className =
         "dot w-1.5 h-1.5 rounded-full bg-dark/20 transition-all duration-300";
       btn.setAttribute("aria-label", `Go to slide ${i + 1}`);
+      btn.setAttribute("aria-current", "false");
       btn.addEventListener("click", () => goTo(i));
       dotsContainer.appendChild(btn);
       dots.push(btn);
@@ -148,6 +149,7 @@ import { services } from "@data/services";
       d.classList.toggle("w-4", active);
       d.classList.toggle("bg-dark/20", !active);
       d.classList.toggle("w-1.5", !active);
+      d.setAttribute("aria-current", String(active));
     });
 
     prevBtn.disabled = current <= 0;

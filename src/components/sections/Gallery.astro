@@ -15,7 +15,7 @@ const categories = [
 ] as const;
 ---
 
-<section id="gallery" class="py-24 bg-white relative overflow-hidden">
+<section id="gallery" class="py-24 bg-white relative overflow-hidden" style="content-visibility: auto; contain-intrinsic-size: 1px 800px;">
   <!-- Ambient gradient -->
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-100 pointer-events-none opacity-30" style="background:radial-gradient(ellipse at center, rgba(221,38,25,0.2) 0%, transparent 70%);"></div>
   <div class="max-w-7xl mx-auto px-5 md:px-10 flex flex-col gap-12 relative z-10">
@@ -47,6 +47,7 @@ const categories = [
                 src={item.src}
                 alt={item.alt}
                 loading="lazy"
+                decoding="async"
                 class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
               <div class="absolute inset-0 bg-linear-to-t from-dark/70 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
@@ -132,10 +133,12 @@ const categories = [
           <span class="inline-block w-px h-6 bg-dark/30 mx-2 align-middle"></span>
           <div class="flex flex-wrap gap-2" id="modal-filters-desktop">
             {
-              categories.map((cat) => (
+              categories.map((cat, idx) => (
                 <button
                   class="filter-btn px-4 py-1.5 text-sm rounded-full border transition-all duration-200"
                   data-cat={cat}
+                  aria-pressed={idx === 0}
+                  aria-label={`Filter by ${cat}`}
                 >
                   {cat}
                 </button>
@@ -182,6 +185,7 @@ const categories = [
                   src={item.src}
                   alt={item.alt}
                   loading="lazy"
+                  decoding="async"
                   class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/50 transition-all duration-300 flex items-end p-3">
@@ -223,10 +227,12 @@ const categories = [
       style="-webkit-overflow-scrolling:touch;"
     >
       {
-        categories.map((cat) => (
+        categories.map((cat, idx) => (
           <button
             class="filter-btn shrink-0 px-4 py-1.5 text-sm rounded-full border transition-all duration-200"
             data-cat={cat}
+            aria-pressed={idx === 0}
+            aria-label={`Filter by ${cat}`}
           >
             {cat}
           </button>
@@ -250,6 +256,7 @@ const categories = [
                 src={item.src}
                 alt={item.alt}
                 loading="lazy"
+                decoding="async"
                 class="w-full h-auto object-cover"
               />
               <span class="absolute top-2 left-2 px-2 py-0.5 bg-white/90 text-dark text-[10px] font-semibold rounded-full">
@@ -357,6 +364,34 @@ const categories = [
   // Start hidden
   modal.style.display = "none";
 
+  // Focus trap elements
+  const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  let focusableElements: HTMLElement[] = [];
+
+  function updateFocusableElements() {
+    const panel = window.innerWidth >= 768 
+      ? document.getElementById("gallery-panel-desktop") 
+      : document.getElementById("gallery-sheet");
+    if (panel) {
+      focusableElements = Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector));
+    }
+  }
+
+  function trapFocus(e: KeyboardEvent) {
+    if (e.key !== "Tab" || focusableElements.length === 0) return;
+    
+    const first = focusableElements[0];
+    const last = focusableElements[focusableElements.length - 1];
+    
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
   // ── Open ───────────────────────────────────────────────
   function openModal() {
     savedScrollY = window.scrollY;
@@ -370,11 +405,21 @@ const categories = [
       sheet.classList.add("open");
     }
 
+    updateFocusableElements();
     filterBtns[0]?.click();
+    
+    // Focus first focusable element
+    setTimeout(() => {
+      updateFocusableElements();
+      focusableElements[0]?.focus();
+    }, 100);
+    
+    document.addEventListener("keydown", trapFocus);
   }
 
   // ── Close ──────────────────────────────────────────────
   function closeModal() {
+    document.removeEventListener("keydown", trapFocus);
     backdrop.style.opacity = "0";
     backdrop.style.pointerEvents = "none";
     sheet.classList.remove("open");
@@ -386,6 +431,7 @@ const categories = [
     document.body.classList.remove("modal-open");
     document.body.style.top = "";
     window.scrollTo({ top: savedScrollY, behavior: "instant" });
+    openBtn.focus();
   }
 
   openBtn.addEventListener("click", openModal);
@@ -427,9 +473,11 @@ const categories = [
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       const cat = btn.dataset.cat!;
-      filterBtns.forEach((b) =>
-        b.classList.toggle("active", b.dataset.cat === cat),
-      );
+      filterBtns.forEach((b) => {
+        const isActive = b.dataset.cat === cat;
+        b.classList.toggle("active", isActive);
+        b.setAttribute("aria-pressed", String(isActive));
+      });
       modalItems.forEach((item) => {
         item.style.display =
           cat === "All" || item.dataset.cat === cat ? "" : "none";

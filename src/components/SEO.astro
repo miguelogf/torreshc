@@ -17,7 +17,7 @@ const {
   type = "website",
 } = Astro.props;
 
-const siteUrl = Astro.site?.href ?? "https://torreshc.com";
+const siteUrl = Astro.site?.href ?? "https://torreshc.vercel.app";
 const canonicalHref = canonicalURL.startsWith("http")
   ? canonicalURL
   : new URL(canonicalURL, siteUrl).href;
@@ -89,7 +89,4 @@ const websiteSchema = {
   set:html={JSON.stringify(organizationSchema)}
 />
 
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify(websiteSchema)}
-/>
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
