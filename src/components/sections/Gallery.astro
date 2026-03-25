@@ -83,6 +83,7 @@ const categories = [
                 decoding="async"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                onload="this.classList.add('loaded')"
               />
               <div class="absolute inset-0 bg-linear-to-t from-dark/70 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
                 <span class="text-white text-sm font-medium translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
@@ -348,37 +349,73 @@ const categories = [
 
   /* Image skeleton shimmer */
   .modal-item {
+    position: relative;
+  }
+
+  /* Skeleton shimmer - placed behind image */
+  .modal-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: linear-gradient(
       110deg,
-      rgba(17, 17, 17, 0.03) 8%,
-      rgba(17, 17, 17, 0.08) 18%,
-      rgba(17, 17, 17, 0.03) 33%
+      rgba(17, 17, 17, 0.06) 8%,
+      rgba(17, 17, 17, 0.12) 18%,
+      rgba(17, 17, 17, 0.06) 33%
     );
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite linear;
+    z-index: 1;
+    border-radius: inherit;
   }
 
-  .modal-item img.loaded {
-    animation: none;
-    background: transparent;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
-  }
-
-  .modal-item img {
+  /* Hide skeleton when image loads */
+  .modal-item img.loaded + .modal-skeleton,
+  .modal-item:has(img.loaded)::before {
     opacity: 0;
     transition: opacity 0.3s ease;
   }
 
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .modal-item img {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    position: relative;
+    z-index: 2;
+  }
+
   .modal-item img.loaded {
     opacity: 1;
+  }
+
+  /* Preview grid skeleton */
+  .preview-item {
+    position: relative;
+  }
+  
+  .preview-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      rgba(17, 17, 17, 0.04) 8%,
+      rgba(17, 17, 17, 0.08) 18%,
+      rgba(17, 17, 17, 0.04) 33%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s infinite linear;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  
+  .preview-item:has(img.loaded)::before {
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
 </style>
 
@@ -684,8 +721,6 @@ const categories = [
 
     img.onload = () => {
       img.classList.add("loaded");
-      container.style.background = "transparent";
-      container.style.animation = "none";
     };
 
     return container;
