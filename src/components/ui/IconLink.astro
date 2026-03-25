@@ -16,7 +16,7 @@ const { name, href, label } = Astro.props as Props;
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label ?? name}
-    class="social-link"
+    class="social-link min-w-[44px] min-h-[44px] flex items-center justify-center"
   >
     <Icon name={name} />
   </a>
