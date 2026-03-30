@@ -92,7 +92,9 @@ const isExternalLink = (href: string) => href.startsWith("http");
             <a
               href={info.href}
               target={isExternalLink(info.href) ? "_blank" : undefined}
-              rel={isExternalLink(info.href) ? "noopener noreferrer" : undefined}
+              rel={
+                isExternalLink(info.href) ? "noopener noreferrer" : undefined
+              }
               class="contact-item flex items-center gap-4 px-4 py-4 rounded-xl group transition-all duration-300 hover:bg-white/5"
               aria-label={`${info.label}: ${info.value}`}
             >
