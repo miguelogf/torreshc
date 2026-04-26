@@ -1,6 +1,7 @@
 ---
 import Logo from "@ui/Logo.astro";
 import Button from "@ui/Button.astro";
+import Icon from "@/components/ui/Icon.astro";
 
 const links = [
   { label: "Home", href: "#hero" },
@@ -30,7 +31,7 @@ const links = [
           <li>
             <a
               href={l.href}
-              class="nav-link px-4 py-2 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-dark/60 hover:text-dark rounded-full hover:bg-dark/5 transition-all duration-200"
+              class="nav-link px-4 py-2 text-[0.87rem] font-semibold uppercase tracking-[0.16em] text-dark/60 hover:text-dark rounded-full hover:bg-dark/5 transition-all duration-200"
             >
               {l.label}
             </a>
@@ -41,7 +42,9 @@ const links = [
 
     <!-- CTA desktop -->
     <div class="hidden md:block">
-      <Button href="#contact" variant="primary">Get a Quote</Button>
+      <Button href="tel:+17042775688" variant="primary"
+        ><Icon name="phone" />(704) 277-5688</Button
+      >
     </div>
 
     <!-- Hamburger mobile -->
