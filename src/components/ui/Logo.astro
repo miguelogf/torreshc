@@ -8,7 +8,7 @@ interface Props {
 
 const { size = 20, variant = "dark" } = Astro.props;
 
-const textColor = variant === "light" ? "text-white/90" : "text-dark/80";
+const textColor = variant === "light" ? "text-white/90" : "text-dark/90";
 ---
 
 <div class="flex items-center gap-2" style={`--logo-size:${size}px`}>
@@ -23,7 +23,7 @@ const textColor = variant === "light" ? "text-white/90" : "text-dark/80";
     translate="no"
     class={`flex flex-col items-center leading-none ${textColor}`}
   >
-    <span class="text-md uppercase tracking-widest font-medium">
+    <span class="text-md uppercase tracking-widest font-bold">
       Torres Home
     </span>
   </div>
