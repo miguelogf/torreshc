@@ -354,7 +354,7 @@ const categories = [
 
   /* Skeleton shimmer - placed behind image */
   .modal-item::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -377,8 +377,12 @@ const categories = [
   }
 
   @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 
   .modal-item img {
@@ -396,9 +400,9 @@ const categories = [
   .preview-item {
     position: relative;
   }
-  
+
   .preview-item::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -412,7 +416,7 @@ const categories = [
     z-index: 1;
     border-radius: inherit;
   }
-  
+
   .preview-item:has(img.loaded)::before {
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -431,241 +435,481 @@ const categories = [
     {
       id: 1,
       src: "/images/01.webp",
-      alt: "New drywall panels installed in residential room",
-      category: "Drywall",
+      alt: "Front exterior of a newly completed two-story home with cream siding and a black roof",
+      category: "Renovations",
     },
     {
       id: 2,
       src: "/images/02.webp",
-      alt: "Custom wood trim and molding detail in living area",
+      alt: "White shaker kitchen cabinets installed in an L-shaped layout",
       category: "Carpentry",
     },
     {
       id: 3,
       src: "/images/03.webp",
-      alt: "Fresh interior paint — warm neutral tones in living room",
-      category: "Painting",
+      alt: "Completed two-story home exterior with new siding, shutters, and front entry path",
+      category: "Renovations",
     },
     {
       id: 4,
       src: "/images/04.webp",
-      alt: "Full kitchen and living area renovation completed",
+      alt: "Quartz countertop and full-height backsplash detail in a remodeled kitchen",
       category: "Renovations",
     },
     {
       id: 5,
       src: "/images/05.webp",
-      alt: "Accent wall painted in deep color — bedroom project",
-      category: "Painting",
+      alt: "Renovated single-story duplex exterior with fresh siding, trim, and entry doors",
+      category: "Renovations",
     },
     {
       id: 6,
       src: "/images/06.webp",
-      alt: "Bathroom gut renovation with new fixtures and tile",
+      alt: "Completed two-story home exterior with new siding and a person standing at the front entry",
       category: "Renovations",
     },
     {
       id: 7,
       src: "/images/07.webp",
-      alt: "Luxury vinyl plank flooring installed in open living space",
-      category: "Flooring",
+      alt: "Interior room masked and prepped for painting around trim and windows",
+      category: "Painting",
     },
     {
       id: 8,
       src: "/images/08.webp",
-      alt: "Large-format porcelain tile laid in modern kitchen",
+      alt: "Dark hardwood flooring installed in a bright room with large glass doors",
       category: "Flooring",
     },
     {
       id: 9,
       src: "/images/09.webp",
-      alt: "Built-in cabinetry and shelving unit in home office",
+      alt: "Kitchen cabinetry installation with upper and lower white shaker cabinets",
       category: "Carpentry",
     },
     {
       id: 10,
       src: "/images/10.webp",
-      alt: "Hardwood flooring refinished and reinstalled in hallway",
+      alt: "Light wood-look plank flooring installed through an open hallway",
       category: "Flooring",
     },
     {
       id: 11,
       src: "/images/11.webp",
-      alt: "Wide-plank engineered wood flooring in master bedroom",
-      category: "Flooring",
+      alt: "Open-plan interior under renovation with tile flooring and surface protection",
+      category: "Renovations",
     },
     {
       id: 12,
       src: "/images/12.webp",
-      alt: "Floating shelves and custom closet built-ins installed",
+      alt: "Large window wall and coffered ceiling framing in a custom interior build",
       category: "Carpentry",
     },
     {
       id: 13,
       src: "/images/13.webp",
-      alt: "Two-tone exterior paint — house refresh in NC neighborhood",
-      category: "Painting",
+      alt: "Team member on site during an active covered patio renovation",
+      category: "Renovations",
     },
     {
       id: 14,
       src: "/images/14.webp",
-      alt: "Open-concept renovation — walls removed and space opened up",
-      category: "Renovations",
+      alt: "Worker fastening trim detail on a kitchen column surround",
+      category: "Carpentry",
     },
     {
       id: 15,
       src: "/images/15.webp",
-      alt: "Staircase railing and newel post carpentry detail",
-      category: "Carpentry",
+      alt: "Freshly painted interior wall with white chair rail trim and paneled door",
+      category: "Painting",
     },
     {
       id: 16,
       src: "/images/16.webp",
-      alt: "Master bath renovation with freestanding tub and tile surround",
-      category: "Renovations",
+      alt: "Crew member finishing a framed kitchen wall and column transition",
+      category: "Carpentry",
     },
     {
       id: 17,
       src: "/images/17.webp",
-      alt: "Laundry room remodel with new cabinetry and flooring",
+      alt: "Newly finished two-story home exterior with fresh siding and front stoop detail",
       category: "Renovations",
     },
     {
       id: 18,
       src: "/images/18.webp",
-      alt: "Herringbone tile pattern in entryway floor",
+      alt: "Light plank flooring installed through an open hallway leading into the kitchen",
       category: "Flooring",
     },
     {
       id: 19,
       src: "/images/19.webp",
-      alt: "Complete home renovation — before and after main living area",
-      category: "Renovations",
+      alt: "Finished walk-in shower with large gray tile and mosaic accent band",
+      category: "Flooring",
     },
     {
       id: 20,
       src: "/images/20.webp",
-      alt: "Smooth Level 5 drywall finish in new construction home",
+      alt: "Ceiling finishing and lighting work in progress during a basement remodel",
       category: "Drywall",
     },
     {
       id: 21,
       src: "/images/21.webp",
-      alt: "Commercial space renovation — office buildout in Charlotte",
-      category: "Renovations",
+      alt: "Interior drywall and framing progress opening into a kitchen renovation",
+      category: "Drywall",
     },
     {
       id: 22,
       src: "/images/22.webp",
-      alt: "Bedroom addition renovation with new windows and drywall",
+      alt: "Completed brick and siding home exterior after a full renovation",
       category: "Renovations",
     },
     {
       id: 23,
       src: "/images/23.webp",
-      alt: "Crisp white paint refresh — trim and walls in family room",
-      category: "Painting",
+      alt: "Covered patio enclosure with new windows, door, and updated siding",
+      category: "Renovations",
     },
     {
       id: 24,
       src: "/images/24.webp",
-      alt: "Crown molding installation in formal dining room",
+      alt: "Custom built-in fireplace wall with shelving and lower cabinets",
       category: "Carpentry",
     },
     {
       id: 25,
       src: "/images/25.webp",
-      alt: "Drywall patched and finished after plumbing repair",
+      alt: "Primed drywall hallway and room ready for final finishes",
       category: "Drywall",
     },
     {
       id: 26,
       src: "/images/26.webp",
-      alt: "Exterior trim painted and refreshed on colonial-style home",
-      category: "Painting",
+      alt: "Clients and crew standing in front of a house during the wrapped exterior build stage",
+      category: "Renovations",
     },
     {
       id: 27,
       src: "/images/27.webp",
-      alt: "Kids room painted with custom color and accent detail",
-      category: "Painting",
+      alt: "Torres Home team members on site during an active renovation project",
+      category: "Renovations",
     },
     {
       id: 28,
       src: "/images/28.webp",
-      alt: "Ceiling drywall installed and textured in basement conversion",
-      category: "Drywall",
+      alt: "Framed interior room with stacked drywall sheets ready for installation",
+      category: "Carpentry",
     },
     {
       id: 29,
       src: "/images/29.webp",
-      alt: "Kitchen cabinet doors and drawer fronts replaced and refinished",
+      alt: "Freshly built wood deck with new guardrails and stained surface",
       category: "Carpentry",
     },
     {
       id: 30,
       src: "/images/30.webp",
-      alt: "Garage interior painted floor to ceiling — clean bright finish",
-      category: "Painting",
+      alt: "Commercial hallway with installed wood-look flooring and finished wall trim",
+      category: "Flooring",
     },
     {
       id: 31,
       src: "/images/31.webp",
-      alt: "Wainscoting panels and chair rail installed in dining area",
+      alt: "Interior window installation with newly framed and trimmed opening",
       category: "Carpentry",
     },
     {
       id: 32,
       src: "/images/32.webp",
-      alt: "Corner bead and joint compound applied for clean drywall seams",
-      category: "Drywall",
+      alt: "Framed room with exposed studs and insulation during rough construction",
+      category: "Carpentry",
     },
     {
       id: 33,
       src: "/images/33.webp",
-      alt: "Stairwell and foyer painted with contrasting trim color",
-      category: "Painting",
+      alt: "Interior wall framing layout in progress for a multi-room home build",
+      category: "Carpentry",
     },
     {
       id: 34,
       src: "/images/34.webp",
-      alt: "Stone look tile installed in bathroom floor and shower",
+      alt: "Luxury vinyl plank flooring being installed with staggered seams",
       category: "Flooring",
     },
     {
       id: 35,
       src: "/images/35.webp",
-      alt: "Drywall hung and taped in new home addition",
+      alt: "Drywall finishing in progress in a basement or garage renovation",
       category: "Drywall",
     },
     {
       id: 36,
       src: "/images/36.webp",
-      alt: "Outdoor patio tile installation — slip-resistant surface",
+      alt: "Finished gray plank flooring installed wall to wall in a newly completed room",
       category: "Flooring",
     },
     {
       id: 37,
       src: "/images/37.webp",
-      alt: "Arched drywall opening finished smooth between living spaces",
+      alt: "Crew member holding a drywall knife during wall finishing work",
       category: "Drywall",
     },
     {
       id: 38,
       src: "/images/38.webp",
-      alt: "Drywall repair after water damage — seamless finish achieved",
+      alt: "Worker positioning a drywall sheet for interior wall installation",
       category: "Drywall",
     },
     {
       id: 39,
       src: "/images/39.webp",
-      alt: "Mosaic tile detail in shower niche and floor",
+      alt: "Luxury vinyl plank piece being set into place during floor installation",
       category: "Flooring",
     },
     {
       id: 40,
       src: "/images/40.webp",
-      alt: "Custom mudroom built-ins with bench, hooks and storage cubbies",
+      alt: "Framed fireplace feature wall in a new residential build",
+      category: "Carpentry",
+    },
+    {
+      id: 41,
+      src: "/images/41.webp",
+      alt: "Client paperwork and planning meeting at the start of a home project",
+      category: "Renovations",
+    },
+    {
+      id: 42,
+      src: "/images/42.webp",
+      alt: "Wrapped two-story home exterior during winter construction progress",
+      category: "Renovations",
+    },
+    {
+      id: 43,
+      src: "/images/43.webp",
+      alt: "Finished living room ceiling with recessed lighting and a ceiling fan",
+      category: "Renovations",
+    },
+    {
+      id: 44,
+      src: "/images/44.webp",
+      alt: "Modern staircase with painted risers and a slim black handrail",
+      category: "Carpentry",
+    },
+    {
+      id: 45,
+      src: "/images/45.webp",
+      alt: "Crew members building upper wall framing on a new home structure",
+      category: "Carpentry",
+    },
+    {
+      id: 46,
+      src: "/images/46.webp",
+      alt: "Open framed interior room with ceiling joists and rough openings",
+      category: "Carpentry",
+    },
+    {
+      id: 47,
+      src: "/images/47.webp",
+      alt: "Two-story house wrapped and laddered during exterior build progress",
+      category: "Renovations",
+    },
+    {
+      id: 48,
+      src: "/images/48.webp",
+      alt: "Finished open living room with gray flooring, white walls, and ceiling fan",
+      category: "Renovations",
+    },
+    {
+      id: 49,
+      src: "/images/49.webp",
+      alt: "Open kitchen and living area completed with gray plank flooring",
+      category: "Renovations",
+    },
+    {
+      id: 50,
+      src: "/images/50.webp",
+      alt: "Completed great room with continuous flooring and natural light",
+      category: "Renovations",
+    },
+    {
+      id: 51,
+      src: "/images/51.webp",
+      alt: "Bathroom double vanity with wood cabinets, round mirrors, and black fixtures",
+      category: "Renovations",
+    },
+    {
+      id: 52,
+      src: "/images/52.webp",
+      alt: "Open-plan interior with finished kitchen, stairs, and gray flooring",
+      category: "Renovations",
+    },
+    {
+      id: 53,
+      src: "/images/53.webp",
+      alt: "Finished bedroom with ceiling fan, fresh paint, and wood-look flooring",
+      category: "Flooring",
+    },
+    {
+      id: 54,
+      src: "/images/54.webp",
+      alt: "Bedroom finished with dark flooring and newly painted walls",
+      category: "Flooring",
+    },
+    {
+      id: 55,
+      src: "/images/55.webp",
+      alt: "Painter rolling fresh wall color over a protected interior floor",
+      category: "Painting",
+    },
+    {
+      id: 56,
+      src: "/images/56.webp",
+      alt: "Framed stair and hallway section during interior construction",
+      category: "Carpentry",
+    },
+    {
+      id: 57,
+      src: "/images/57.webp",
+      alt: "Completed kitchen and living area with light wood-look flooring",
+      category: "Renovations",
+    },
+    {
+      id: 58,
+      src: "/images/58.webp",
+      alt: "Laundry or utility cabinets with a quartz counter and gold faucet",
+      category: "Carpentry",
+    },
+    {
+      id: 59,
+      src: "/images/59.webp",
+      alt: "Finished entry and living area with continuous light plank flooring",
+      category: "Renovations",
+    },
+    {
+      id: 60,
+      src: "/images/60.webp",
+      alt: "Dining and living space finished with pendant lights and new flooring",
+      category: "Renovations",
+    },
+    {
+      id: 61,
+      src: "/images/61.webp",
+      alt: "Basement or lower-level framing layout before drywall installation",
+      category: "Carpentry",
+    },
+    {
+      id: 62,
+      src: "/images/62.webp",
+      alt: "Small vanity with round mirror, wall sconces, and black faucet",
+      category: "Renovations",
+    },
+    {
+      id: 63,
+      src: "/images/63.webp",
+      alt: "Bathroom tub surround finished with marble-look wall tile",
+      category: "Flooring",
+    },
+    {
+      id: 64,
+      src: "/images/64.webp",
+      alt: "Custom utility cabinetry with quartz countertop and brass faucet detail",
+      category: "Carpentry",
+    },
+    {
+      id: 65,
+      src: "/images/65.webp",
+      alt: "Interior hallway with unfinished drywall and openings before final trim",
+      category: "Drywall",
+    },
+    {
+      id: 66,
+      src: "/images/66.webp",
+      alt: "Open interior under renovation before flooring and final finishes",
+      category: "Renovations",
+    },
+    {
+      id: 67,
+      src: "/images/67.webp",
+      alt: "Front elevation of a completed two-story home under bright daylight",
+      category: "Renovations",
+    },
+    {
+      id: 68,
+      src: "/images/68.webp",
+      alt: "Side elevation of a finished home with new siding and grading",
+      category: "Renovations",
+    },
+    {
+      id: 69,
+      src: "/images/69.webp",
+      alt: "Homeowners standing in front of their newly framed and wrapped house",
+      category: "Renovations",
+    },
+    {
+      id: 70,
+      src: "/images/70.webp",
+      alt: "Freshly finished ceiling and painted room interior ready for trim out",
+      category: "Painting",
+    },
+    {
+      id: 71,
+      src: "/images/71.webp",
+      alt: "Wrapped home exterior with ladder access during construction progress",
+      category: "Renovations",
+    },
+    {
+      id: 72,
+      src: "/images/72.webp",
+      alt: "Clients posing in front of a house during the build stage",
+      category: "Renovations",
+    },
+    {
+      id: 73,
+      src: "/images/73.webp",
+      alt: "Finished two-story home exterior with siding materials staged outside",
+      category: "Renovations",
+    },
+    {
+      id: 74,
+      src: "/images/74.webp",
+      alt: "Side of a house during exterior renovation with ladders set in place",
+      category: "Renovations",
+    },
+    {
+      id: 75,
+      src: "/images/75.webp",
+      alt: "Framed bedroom interior with large windows before insulation and drywall",
+      category: "Carpentry",
+    },
+    {
+      id: 76,
+      src: "/images/76.webp",
+      alt: "Exterior home under construction with mixed wrap and installed siding",
+      category: "Renovations",
+    },
+    {
+      id: 77,
+      src: "/images/77.webp",
+      alt: "Worker finishing a freshly poured concrete slab for a new build",
+      category: "Renovations",
+    },
+    {
+      id: 78,
+      src: "/images/78.webp",
+      alt: "Sheathed exterior wall section under construction beside the main house",
+      category: "Carpentry",
+    },
+    {
+      id: 79,
+      src: "/images/79.webp",
+      alt: "Client reviewing architectural house plans during project planning",
+      category: "Renovations",
+    },
+    {
+      id: 80,
+      src: "/images/80.webp",
+      alt: "Framed interior room with rough electrical ready for the next build phase",
       category: "Carpentry",
     },
   ];
